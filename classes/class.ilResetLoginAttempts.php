@@ -112,8 +112,12 @@ class ilResetLoginAttempts extends ilCronJob {
 			global $DIC;
 			$db = $DIC->database();
 			$security = ilSecuritySettings::_getInstance();
+			
+			$dur = $this->getScheduleValue();
 						
-			$db->manipulate('UPDATE usr_data SET login_attempts = 0, active = 1 WHERE login_attempts >= '.$security->getLoginMaxAttempts());
+			$db->manipulate('UPDATE usr_data SET login_attempts = 0, active = 1 WHERE login_attempts >= '
+			    .$db->quote($security->getLoginMaxAttempts(), 'integer').' AND inactivation_date >= '
+			    .$db->quote(date('Y-m-d H:i:s', strtotime('-$dur minutes')), 'datetime'));
 		    
 			return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_OK, 'Cron job terminated successfully.');
 		} catch (Exception $e) {
