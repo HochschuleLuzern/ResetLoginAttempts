@@ -116,8 +116,9 @@ class ilResetLoginAttempts extends ilCronJob {
 			$dur = $this->getScheduleValue();
 						
 			$db->manipulate('UPDATE usr_data SET login_attempts = 0, active = 1 WHERE login_attempts >= '
-			    .$db->quote($security->getLoginMaxAttempts(), 'integer').' AND inactivation_date >= '
-			    .$db->quote(date('Y-m-d H:i:s', strtotime('-$dur minutes')), 'datetime'));
+			    .$db->quote($security->getLoginMaxAttempts(), 'integer').' AND inactivation_date <= '
+			    .$db->quote(date('Y-m-d H:i:s', strtotime('-25 minutes')), 'datetime')
+			    .' AND inactivation_date >= '.$db->quote(date('Y-m-d H:i:s', strtotime('-35 minutes')), 'datetime'));
 		    
 			return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_OK, 'Cron job terminated successfully.');
 		} catch (Exception $e) {
