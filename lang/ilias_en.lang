@@ -1,0 +1,7 @@
+/**
+/ English Language File for Notify on Cron Failure Cron-Plugin
+**/
+
+title#:#Resets failed login attempts and reactivates corresponding users
+description#:#This plugin allows to implement a soft lockout by resetting failed login attempts and reactivating corresponding users after a while.
+success#:#The cron jobs could be tested successfully.

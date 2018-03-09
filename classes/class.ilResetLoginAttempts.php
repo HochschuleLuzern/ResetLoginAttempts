@@ -1,0 +1,124 @@
+<?php
+/**
+ * Copyright (c) 2017 Hochschule Luzern
+ *
+ * This file is part of the ResetLoginAttempts-Plugin for ILIAS.
+
+ * NotifyOnCronFailure-Plugin for ILIAS is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+
+ * NotifyOnCronFailure-Plugin for ILIAS is distributed in the hope that
+ * it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with NotifyOnCronFailure-Plugin for ILIAS.  If not,
+ * see <http://www.gnu.org/licenses/>.
+ */
+
+require_once './Services/Cron/classes/class.ilCronJob.php';
+require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts/classes/class.ilResetLoginAttemptsResult.php';
+include_once './Services/PrivacySecurity/classes/class.ilSecuritySettings.php';
+
+/**
+ * Class ilResetLoginAttempts
+ *
+ * @author Stephan Winiker <stephan.winiker@hslu.ch>
+ */
+
+class ilResetLoginAttempts extends ilCronJob {
+	
+	const ID = "crreset_rs";
+	
+	private $cp;
+
+	public function __construct() {
+	    $this->cp = new ilResetLoginAttemptsPlugin();
+	}
+	
+	public function getId() {
+		return self::ID;
+	}
+	
+	/**
+	 * @return bool
+	 */
+	public function hasAutoActivation() {
+		return false;
+	}
+	
+	/**
+	 * @return bool
+	 */
+	public function hasFlexibleSchedule() {
+		return true;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getDefaultScheduleType() {
+		return self::SCHEDULE_TYPE_IN_MINUTES;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getDefaultScheduleValue() {
+		return 30;
+	}
+	
+	/**
+	 * Get title
+	 *
+	 * @return string
+	 */
+	public function getTitle()
+	{
+		return $this->cp->txt("title");
+	}
+	
+	/**
+	 * Get description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->cp->txt("description");
+	}
+	
+	/**
+	 * Defines whether or not a cron job can be started manually
+	 * @return bool
+	 */
+	public function isManuallyExecutable()
+	{
+		return false;
+	}
+	
+	public function hasCustomSettings()
+	{
+		return false;
+	}
+	
+	public function run() {
+		include_once "Services/Cron/classes/class.ilCronJobResult.php";
+		
+		try {
+			global $DIC;
+			$db = $DIC->database();
+			$security = ilSecuritySettings::_getInstance();
+						
+			$db->manipulate('UPDATE usr_data SET login_attempts = 0, active = 1 WHERE login_attempts >= '.$security->getLoginMaxAttempts());
+		    
+			return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_OK, 'Cron job terminated successfully.');
+		} catch (Exception $e) {
+		    return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_CRASHED, 'Cron job crashed: ' . $e->getMessage());
+		}
+		
+	}
+}
