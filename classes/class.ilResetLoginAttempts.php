@@ -68,7 +68,7 @@ class ilResetLoginAttempts extends ilCronJob {
 	 * @return int
 	 */
 	public function getDefaultScheduleValue() {
-		return 30;
+		return 5;
 	}
 	
 	/**
