@@ -34,9 +34,11 @@ class ilResetLoginAttempts extends ilCronJob {
 	const ID = "crreset_rs";
 	
 	private $cp;
+	private $settings;
 
 	public function __construct() {
 	    $this->cp = new ilResetLoginAttemptsPlugin();
+	    $this->settings = new ilSetting("crreset");
 	}
 	
 	public function getId() {
@@ -102,7 +104,7 @@ class ilResetLoginAttempts extends ilCronJob {
 	
 	public function hasCustomSettings()
 	{
-		return false;
+		return true;
 	}
 	
 	public function run() {
@@ -113,17 +115,57 @@ class ilResetLoginAttempts extends ilCronJob {
 			$db = $DIC->database();
 			$security = ilSecuritySettings::_getInstance();
 			
-			$dur = $this->getScheduleValue();
+			$schedule = $this->getScheduleValue();
+			$lockout_duration = $this->settings->get('crreset_lockout_duration', '30');
+			
+			/**
+			 * To ensure that nobody is locked out longer than the defined lockout time, we reset the
+			 * settings for lockouts longer than lockout_duration - cron_schedule_value
+			 */
+			$min_lockout = $lockout_duration - $schedule;
 						
 			$db->manipulate('UPDATE usr_data SET login_attempts = 0, active = 1 WHERE login_attempts >= '
 			    .$db->quote($security->getLoginMaxAttempts(), 'integer').' AND inactivation_date <= '
-			    .$db->quote(date('Y-m-d H:i:s', strtotime('-25 minutes')), 'datetime')
-			    .' AND inactivation_date >= '.$db->quote(date('Y-m-d H:i:s', strtotime('-35 minutes')), 'datetime'));
+			    .$db->quote(date('Y-m-d H:i:s', strtotime('-'.$min_lockout.' minutes')), 'datetime'));
 		    
 			return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_OK, 'Cron job terminated successfully.');
 		} catch (Exception $e) {
 		    return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_CRASHED, 'Cron job crashed: ' . $e->getMessage());
 		}
+	}
+	
+	/**
+	 * Defines the custom settings form and returns it to plugin slot
+	 *
+	 * @param ilPropertyFormGUI $a_form
+	 */
+	public function addCustomSettingsToForm(ilPropertyFormGUI $a_form)
+	{
+		include_once 'Services/Form/classes/class.ilNumberInputGUI.php';
+		$ws_item = new ilNumberInputGUI(
+				$this->cp->txt('lockout_duration'),
+				'crreset_lockout_duration'
+				);
+		$ws_item->setInfo($this->cp->txt('lockout_duration_desc'));
+		$ws_item->allowDecimals(false);
+		$ws_item->setMinValue(0);
+		$ws_item->setRequired(true);
+		$ws_item->setValue($this->settings->get('crreset_lockout_duration', '30'));
+		$a_form->addItem($ws_item);
+	}
+	
+	/**
+	 * Saves the custom settings values
+	 *
+	 * @param ilPropertyFormGUI $a_form
+	 * @return boolean
+	 */
+	public function saveCustomSettings(ilPropertyFormGUI $a_form)
+	{
+		if ($_POST['crreset_lockout_duration'] != null) {
+			$this->settings->set('crreset_lockout_duration', $_POST['crreset_lockout_duration']);
+		}
 		
+		return true;
 	}
 }

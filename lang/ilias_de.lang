@@ -1,7 +1,8 @@
 /**
-/ German Language File for Notify on Cron Failure Cron-Plugin
+/ German Language File for ResetLoginAttempts-Plugin
 **/
 
 title#:#Anmeldeversuche zurücksetzen und Benutzer reaktivieren
 description#:#Mit diesem Plugin lässt sich ein soft lockout realisieren, indem es die gescheiterten Anmeldeversuche zurücksetzt und deswegen deaktiverte Benutzer wieder reaktiviert.
-success#:#The cron jobs could be tested successfully.
+lockout_duration#:#Dauer des Lockouts
+lockout_duration_desc#:#Die effektive Dauer des Lockouts variiert abhängig von dieser Einstellung und dem Zeitplan des Cron-Jobs. Damit niemand länger als die vorgegebene Zeit ausgesperrt wird, werden alle Benutzer wieder aktiviert, die länger als lockout_dauer - cron_zeitplan ausgesperrt waren.

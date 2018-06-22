@@ -1,7 +1,8 @@
 /**
-/ English Language File for Notify on Cron Failure Cron-Plugin
+/ English Language File for ResetLoginAttempts-Plugin
 **/
 
 title#:#Resets failed login attempts and reactivates corresponding users
 description#:#This plugin allows to implement a soft lockout by resetting failed login attempts and reactivating corresponding users after a while.
-success#:#The cron jobs could be tested successfully.
+lockout_duration#:#Duration of Lockout
+lockout_duration_desc#:#The actual duration of the lockout varies depending on the settings of the lockout duration and the schedule of this cron job. To avoid locking somebody out for longer than the indicated time, all users deactivated more than lockout_duration - cron_schedule will be reactivated.

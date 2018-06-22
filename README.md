@@ -8,7 +8,7 @@ ResetOnLoginAttempts is a Cron-Plugin that checks users who have reached the max
 5.2.0
 
 **Maximum ILIAS Version:**
-5.2.999
+5.3.999
 
 **Responsible Developer:**
 Stephan Winiker - stephan.winiker@hslu.ch
@@ -19,13 +19,13 @@ German, English
 ### Quick Installation Guide
 1. Copy the content of this folder in <ILIAS_directory>/Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts or clon this Github-Repo to <ILIAS_directory>/Customizing/global/plugins/Services/Cron/CronHook/
 
-2. Access ILIAS, go to the administration menu and select "Plugins" in the menu on the right.
+2. Access ILIAS, go to the administration menu and select "Plugins".
 
-3. Look for the ResetLoginAttempts plugin in the table, press the "Action" button and seect "Update". All existing data on failed Login Attempts will be reseted. This needs to be done to avoid reactivating old login accounts.
+3. Look for the ResetLoginAttempts plugin in the table, press the "Action" button and select "Update". All existing data on failed Login Attempts will be reseted. This needs to be done to avoid reactivating old login accounts.
 
 4. Press the "Action" button and select "Activate" to activate the plugin.
 
-5. Got to the administration menu, select "General Settings" and then "Cron Jobs".
+5. Go to the administration menu, select "General Settings" and then "Cron Jobs".
 
 7. Look for "Resets failed login attempts and reactivates corresponding users" in the table and click "Edit".
 
