@@ -25,7 +25,7 @@
 	// Version Information of Plugin & compatible versions of ILIAS
 	$version = '0.2';
 	$ilias_min_version = '5.2.0';
-	$ilias_max_version = '5.3.999';
+	$ilias_max_version = '5.4.999';
 	
 	// Please contact this person if you have questions
 	$responsible = 'Stephan Winiker';
