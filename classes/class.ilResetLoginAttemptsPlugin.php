@@ -19,7 +19,6 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-include_once "./Services/Cron/classes/class.ilCronHookPlugin.php";
 require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts/classes/class.ilResetLoginAttempts.php';
 
 

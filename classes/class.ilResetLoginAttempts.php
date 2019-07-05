@@ -19,9 +19,7 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-require_once './Services/Cron/classes/class.ilCronJob.php';
 require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts/classes/class.ilResetLoginAttemptsResult.php';
-include_once './Services/PrivacySecurity/classes/class.ilSecuritySettings.php';
 
 /**
  * Class ilResetLoginAttempts
@@ -107,9 +105,7 @@ class ilResetLoginAttempts extends ilCronJob {
 		return true;
 	}
 	
-	public function run() {
-		include_once "Services/Cron/classes/class.ilCronJobResult.php";
-		
+	public function run() {		
 		try {
 			global $DIC;
 			$db = $DIC->database();
@@ -128,9 +124,9 @@ class ilResetLoginAttempts extends ilCronJob {
 			    .$db->quote($security->getLoginMaxAttempts(), 'integer').' AND inactivation_date <= '
 			    .$db->quote(date('Y-m-d H:i:s', strtotime('-'.$min_lockout.' minutes')), 'datetime'));
 		    
-			return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_OK, 'Cron job terminated successfully.');
+			return new ilResetLoginAttemptsResult(ilResetLoginAttemptsResult::STATUS_OK, 'Cron job terminated successfully.');
 		} catch (Exception $e) {
-		    return new ilResetLoginAttemptsResult(ilNotifyOnCronFailureResult::STATUS_CRASHED, 'Cron job crashed: ' . $e->getMessage());
+			return new ilResetLoginAttemptsResult(ilResetLoginAttemptsResult::STATUS_CRASHED, 'Cron job crashed: ' . $e->getMessage());
 		}
 	}
 	
