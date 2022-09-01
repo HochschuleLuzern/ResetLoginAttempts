@@ -1,7 +1,7 @@
 /**
 / German Language File for Notify on Cron Failure Cron-Plugin
 **/
-
-title#:#Anmeldeversuche zurücksetzen und Benutzer reaktivieren
+<!-- language file start -->
 description#:#Mit diesem Plugin lässt sich ein soft lockout realisieren, indem es die gescheiterten Anmeldeversuche zurücksetzt und deswegen deaktiverte Benutzer wieder reaktiviert.
 success#:#The cron jobs could be tested successfully.
+title#:#Anmeldeversuche zurücksetzen und Benutzer reaktivieren
