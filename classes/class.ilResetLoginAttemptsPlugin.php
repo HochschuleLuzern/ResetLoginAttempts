@@ -31,59 +31,62 @@ require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAtte
 
 class ilResetLoginAttemptsPlugin extends ilCronHookPlugin
 {
-	
-	const PLUGIN_NAME = "ResetLoginAttempts";
-	
-	/**
-	 * @var ilResetLoginAttemptsPlugin
-	 */
-	protected static $instance;
-	
-	/**
-	 * @return ilResetLoginAttemptsPlugin
-	 */
-	public static function getInstance() {
-		if (! isset(self::$instance)) {
-			self::$instance = new self();
-		}
-		
-		return self::$instance;
-	}
-	
-	public function getPluginName() {
-		return self::PLUGIN_NAME;
-	}
-	
-	/**
-	 * @var  ilNotifyOnCronFailureNotify
-	 */
-	protected static $cron_job_instances;
-	
-	/**
-	 * @return  ilResetLoginAttemptsPluginInstances[]
-	 */
-	public function getCronJobInstances() {
-		$this->loadCronJobInstance();
-		
-		return array_values(self::$cron_job_instances);
-	}
-	
-	/**
-	 * @return  ilResetLoginAttemptsPluginInstance or false on failure
-	 */
-	public function getCronJobInstance($a_job_id) {
-		$this->loadCronJobInstance();		
-		if (isset(self::$cron_job_instances[$a_job_id])) {
-			return self::$cron_job_instances[$a_job_id];
-		} else {
-			return false;
-		}
-	}
-	
-	protected function loadCronJobInstance() {
-		if (!isset(self::$cron_job_instances)) {
-			self::$cron_job_instances[ilResetLoginAttempts::ID] = new ilResetLoginAttempts();
-		}
-	}
-	
+    const PLUGIN_NAME = "ResetLoginAttempts";
+    
+    /**
+     * @var ilResetLoginAttemptsPlugin
+     */
+    protected static $instance;
+    
+    /**
+     * @return ilResetLoginAttemptsPlugin
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
+        }
+        
+        return self::$instance;
+    }
+    
+    public function getPluginName()
+    {
+        return self::PLUGIN_NAME;
+    }
+    
+    /**
+     * @var  ilNotifyOnCronFailureNotify
+     */
+    protected static $cron_job_instances;
+    
+    /**
+     * @return  ilResetLoginAttemptsPluginInstances[]
+     */
+    public function getCronJobInstances()
+    {
+        $this->loadCronJobInstance();
+        
+        return array_values(self::$cron_job_instances);
+    }
+    
+    /**
+     * @return  ilResetLoginAttemptsPluginInstance or false on failure
+     */
+    public function getCronJobInstance($a_job_id)
+    {
+        $this->loadCronJobInstance();
+        if (isset(self::$cron_job_instances[$a_job_id])) {
+            return self::$cron_job_instances[$a_job_id];
+        } else {
+            return false;
+        }
+    }
+    
+    protected function loadCronJobInstance()
+    {
+        if (!isset(self::$cron_job_instances)) {
+            self::$cron_job_instances[ilResetLoginAttempts::ID] = new ilResetLoginAttempts();
+        }
+    }
 }

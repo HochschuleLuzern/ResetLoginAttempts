@@ -27,5 +27,5 @@
  * We need reset all the login counters to make sure we don't reactivate any users by accident
 
  */
-	$ilDB->manipulate('UPDATE usr_data SET login_attempts = 0');
+    $ilDB->manipulate('UPDATE usr_data SET login_attempts = 0');
 ?>
