@@ -50,7 +50,7 @@ class ilResetLoginAttemptsPlugin extends ilCronHookPlugin
         return self::$instance;
     }
     
-    public function getPluginName()
+    public function getPluginName(): string
     {
         return self::PLUGIN_NAME;
     }
@@ -63,7 +63,7 @@ class ilResetLoginAttemptsPlugin extends ilCronHookPlugin
     /**
      * @return  ilResetLoginAttemptsPluginInstances[]
      */
-    public function getCronJobInstances()
+    public function getCronJobInstances(): array
     {
         $this->loadCronJobInstance();
         
@@ -73,7 +73,7 @@ class ilResetLoginAttemptsPlugin extends ilCronHookPlugin
     /**
      * @return  ilResetLoginAttemptsPluginInstance or false on failure
      */
-    public function getCronJobInstance($a_job_id)
+    public function getCronJobInstance($a_job_id): ilCronJob
     {
         $this->loadCronJobInstance();
         if (isset(self::$cron_job_instances[$a_job_id])) {

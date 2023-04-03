@@ -40,7 +40,7 @@ class ilResetLoginAttempts extends ilCronJob
         $this->cp = new ilResetLoginAttemptsPlugin();
     }
     
-    public function getId()
+    public function getId(): string
     {
         return self::ID;
     }
@@ -48,7 +48,7 @@ class ilResetLoginAttempts extends ilCronJob
     /**
      * @return bool
      */
-    public function hasAutoActivation()
+    public function hasAutoActivation(): bool
     {
         return false;
     }
@@ -56,7 +56,7 @@ class ilResetLoginAttempts extends ilCronJob
     /**
      * @return bool
      */
-    public function hasFlexibleSchedule()
+    public function hasFlexibleSchedule(): bool
     {
         return true;
     }
@@ -64,7 +64,7 @@ class ilResetLoginAttempts extends ilCronJob
     /**
      * @return int
      */
-    public function getDefaultScheduleType()
+    public function getDefaultScheduleType(): int
     {
         return self::SCHEDULE_TYPE_IN_MINUTES;
     }
@@ -72,7 +72,7 @@ class ilResetLoginAttempts extends ilCronJob
     /**
      * @return int
      */
-    public function getDefaultScheduleValue()
+    public function getDefaultScheduleValue(): int
     {
         return 5;
     }
@@ -82,7 +82,7 @@ class ilResetLoginAttempts extends ilCronJob
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->cp->txt("title");
     }
@@ -92,7 +92,7 @@ class ilResetLoginAttempts extends ilCronJob
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->cp->txt("description");
     }
@@ -101,17 +101,17 @@ class ilResetLoginAttempts extends ilCronJob
      * Defines whether or not a cron job can be started manually
      * @return bool
      */
-    public function isManuallyExecutable()
+    public function isManuallyExecutable(): bool
     {
         return false;
     }
     
-    public function hasCustomSettings()
+    public function hasCustomSettings(): bool
     {
         return false;
     }
     
-    public function run()
+    public function run(): ilCronJobResult
     {
         include_once "Services/Cron/classes/class.ilCronJobResult.php";
         
