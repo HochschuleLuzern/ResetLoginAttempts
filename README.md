@@ -3,6 +3,8 @@
 ResetOnLoginAttempts is a Cron-Plugin that checks users who have reached the maximum number of failed login attempts and have thus been deactivated and resets them. Thus a very simple soft lockout is implemented. This was developed to avoid lockout from sso services like ldap.
 **It needs a patch in ILIAS core to avoid resetting manually deactivated users. See https://github.com/HochschuleLuzern/ILIAS-HSLU/commit/cea03d0fc47018e8fdf860a09be4ecf826170acd for the commit. This Cronjob MUST run at least every 5 minutes!**
 
+**Installation Path:**
+<ilias_path>/Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts
 
 **Minimum ILIAS Version:**
 5.2.0
