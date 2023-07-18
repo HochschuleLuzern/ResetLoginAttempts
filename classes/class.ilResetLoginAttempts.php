@@ -37,7 +37,7 @@ class ilResetLoginAttempts extends ilCronJob
 
     public function __construct()
     {
-        $this->cp = new ilResetLoginAttemptsPlugin();
+        $this->cp = \ilResetLoginAttemptsPlugin::getInstance();
     }
     
     public function getId(): string
