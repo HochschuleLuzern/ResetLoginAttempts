@@ -22,6 +22,7 @@
 require_once './Services/Cron/classes/class.ilCronJob.php';
 require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts/classes/class.ilResetLoginAttemptsResult.php';
 include_once './Services/PrivacySecurity/classes/class.ilSecuritySettings.php';
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 
 /**
  * Class ilResetLoginAttempts
@@ -64,9 +65,9 @@ class ilResetLoginAttempts extends ilCronJob
     /**
      * @return int
      */
-    public function getDefaultScheduleType(): int
+    public function getDefaultScheduleType(): CronJobScheduleType
     {
-        return self::SCHEDULE_TYPE_IN_MINUTES;
+        return CronJobScheduleType::SCHEDULE_TYPE_IN_MINUTES;
     }
     
     /**
