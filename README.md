@@ -7,10 +7,10 @@ ResetOnLoginAttempts is a Cron-Plugin that checks users who have reached the max
 <ilias_path>/Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts
 
 **Minimum ILIAS Version:**
-5.2.0
+8.0
 
 **Maximum ILIAS Version:**
-5.2.999
+9.999
 
 **Responsible Developer:**
 Stephan Winiker - stephan.winiker@hslu.ch
