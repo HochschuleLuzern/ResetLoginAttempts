@@ -19,9 +19,6 @@
  * see <http://www.gnu.org/licenses/>.
  */
 
-require_once './Services/Cron/classes/class.ilCronJob.php';
-require_once './Customizing/global/plugins/Services/Cron/CronHook/ResetLoginAttempts/classes/class.ilResetLoginAttemptsResult.php';
-include_once './Services/PrivacySecurity/classes/class.ilSecuritySettings.php';
 use ILIAS\Cron\Schedule\CronJobScheduleType;
 
 /**
@@ -114,8 +111,6 @@ class ilResetLoginAttempts extends ilCronJob
     
     public function run(): ilCronJobResult
     {
-        include_once "Services/Cron/classes/class.ilCronJobResult.php";
-        
         try {
             global $DIC;
             $db = $DIC->database();
